@@ -39,3 +39,43 @@ bool file_utils::file_contents_equal(const std::string& filename1, const std::st
 
 	return content1 == content2;
 }
+
+std::vector<std::vector<unsigned char>> file_utils::get_big_number_list_from_file(const std::string& filename)
+{
+	std::ifstream file{filename};
+	std::vector<std::vector<unsigned char>> numbers;
+	std::string line;
+
+	while (std::getline(file, line))
+	{
+		auto number = data_utils::string_to_big_number(line);
+		numbers.push_back(number);
+	}
+	return numbers;
+}
+
+void file_utils::save_results_to_csv(const std::string& filename,
+                                     const int min_digits,
+                                     const int max_digits,
+                                     const double sequential_time,
+                                     const double parallel_time,
+                                     const double optimised_parallel_time,
+                                     const int threads_count)
+{
+	std::vector<std::string> data;
+
+	data.push_back(std::to_string(min_digits));
+	data.push_back(std::to_string(max_digits));
+	data.push_back(std::to_string(sequential_time));
+	data.push_back(std::to_string(parallel_time));
+	data.push_back(std::to_string(optimised_parallel_time));
+	data.push_back(std::to_string(threads_count));
+
+	write_data_to_csv_file(filename, data);
+}
+
+void file_utils::save_big_number_to_file(const std::vector<unsigned char>& number, const std::string& filename)
+{
+	std::ofstream file{filename, std::ios::trunc};
+	file << data_utils::big_number_to_string(number);
+}
