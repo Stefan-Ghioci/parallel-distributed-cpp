@@ -33,6 +33,9 @@
     <ClCompile Include="parallel_adder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="optimised_parallel_adder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_utils.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="parallel_adder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="optimised_parallel_adder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

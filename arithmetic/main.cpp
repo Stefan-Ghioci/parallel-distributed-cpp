@@ -5,6 +5,7 @@
 #include "sequential_adder.h"
 #include "paths.h"
 #include "parallel_adder.h"
+#include "optimised_parallel_adder.h"
 
 
 int main(int argc, char* argv[])
@@ -25,29 +26,30 @@ int main(int argc, char* argv[])
 
 	const auto sequential_time = sequential_adder::run(number1, number2);
 	const auto parallel_time = parallel_adder::run(threads_count, number1, number2);
-	// const double optimised_parallel_time = optimised_parallel_adder::run(threads_count, number1, number2);
+	const auto optimised_parallel_time = optimised_parallel_adder::run(threads_count, number1, number2);
 
-	// if (file_utils::file_contents_equal(sequential_sum_filename, parallel_sum_filename) && file_utils::
-	// 	file_contents_equal(sequential_sum_filename, optimised_parallel_sum_filename))
-	// {
-	std::cout << "--------------------------------------" << std::endl;
-	std::cout << "Sequential Time: " << std::endl;
-	std::cout << sequential_time << "ms" << std::endl;
+	if (file_utils::file_contents_equal(sequential_sum_filename, parallel_sum_filename)
+		&& file_utils::file_contents_equal(sequential_sum_filename, optimised_parallel_sum_filename)
+	)
+	{
+		std::cout << "--------------------------------------" << std::endl;
+		std::cout << "Sequential Time: " << std::endl;
+		std::cout << sequential_time << "ms" << std::endl;
 
-	std::cout << "Parallel Time: " << std::endl;
-	std::cout << parallel_time << "ms" << std::endl;
+		std::cout << "Parallel Time: " << std::endl;
+		std::cout << parallel_time << "ms" << std::endl;
 
-	std::cout << "Optimised parallel Time: " << std::endl;
-	// std::cout << optimised_parallel_time << "ms" << std::endl;
-	std::cout << "-------------------------------------" << std::endl;
+		std::cout << "Optimised parallel Time: " << std::endl;
+		std::cout << optimised_parallel_time << "ms" << std::endl;
+		std::cout << "-------------------------------------" << std::endl;
 
-	// 	file_utils::save_results_to_csv(results_filename,
-	// 	                                min_digits,
-	// 	                                max_digits,
-	// 	                                sequential_time,
-	// 	                                parallel_time,
-	// 	                                optimised_parallel_time,
-	// 	                                threads_count);
-	// }
-	// else { std::cout << "Results are not equal!!!" << std::endl; }
+			file_utils::save_results_to_csv(results_filename,
+			                                min_digits,
+			                                max_digits,
+			                                sequential_time,
+			                                parallel_time,
+			                                optimised_parallel_time,
+			                                threads_count);
+	}
+	else { std::cout << "Results are not equal!!!" << std::endl; }
 }
