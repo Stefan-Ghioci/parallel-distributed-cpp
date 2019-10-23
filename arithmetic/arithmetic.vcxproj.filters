@@ -30,6 +30,9 @@
     <ClCompile Include="paths.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="parallel_adder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_utils.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="paths.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parallel_adder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

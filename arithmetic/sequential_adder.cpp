@@ -8,20 +8,22 @@ void sequential_adder::compute(const std::vector<unsigned char>& number1,
                                const std::vector<unsigned char>& number2,
                                std::vector<unsigned char>& sum)
 {
+	const auto size = number1.size();
 	unsigned char carry = 0;
-	for (unsigned int i = 0; i < number1.size(); i++)
+
+	for (unsigned int i = 0; i < size; i++)
 	{
 		const unsigned char digit_sum = number1[i] + number2[i] + carry;
-		sum.push_back(digit_sum % 10);
+		sum[i] = digit_sum % 10;
 		carry = digit_sum / 10;
 	}
-	if (carry != 0) sum.push_back(carry);
+	if (carry != 0) sum[size] = carry;
 }
 
 
 double sequential_adder::run(const std::vector<unsigned char>& number1, const std::vector<unsigned char>& number2)
 {
-	std::vector<unsigned char> sum;
+	std::vector<unsigned char> sum(number1.size() + 1);
 
 	const auto start_time = std::chrono::steady_clock::now();
 

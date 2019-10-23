@@ -122,12 +122,14 @@
     <ClCompile Include="data_utils.cpp" />
     <ClCompile Include="file_utils.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="parallel_adder.cpp" />
     <ClCompile Include="paths.cpp" />
     <ClCompile Include="sequential_adder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_utils.h" />
     <ClInclude Include="file_utils.h" />
+    <ClInclude Include="parallel_adder.h" />
     <ClInclude Include="paths.h" />
     <ClInclude Include="sequential_adder.h" />
   </ItemGroup>
