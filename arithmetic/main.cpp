@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 	const auto min_digits = atoi(argv[2]); // NOLINT(cert-err34-c)
 	const auto max_digits = atoi(argv[3]); // NOLINT(cert-err34-c)
 
-	srand(time(nullptr));
+	srand(time(nullptr));  // NOLINT
 	file_utils::generate_big_data_file(numbers_filename, 2, min_digits, max_digits);
 	auto numbers = file_utils::get_big_number_list_from_file(numbers_filename);
 
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 		std::cout << "Optimised parallel Time: " << std::endl;
 		std::cout << optimised_parallel_time << "ms" << std::endl;
 		std::cout << "-------------------------------------" << std::endl;
-
+			
 			file_utils::save_results_to_csv(results_filename,
 			                                min_digits,
 			                                max_digits,
