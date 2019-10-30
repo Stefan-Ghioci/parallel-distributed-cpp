@@ -18,7 +18,6 @@ public:
 	                                const int max_digits,
 	                                const double sequential_time,
 	                                const double parallel_time,
-	                                const double optimised_parallel_time,
 	                                int threads_count);
 	static void save_big_number_to_file(const std::vector<unsigned char>& number, const std::string& filename);
 };

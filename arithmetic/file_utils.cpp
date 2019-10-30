@@ -59,7 +59,6 @@ void file_utils::save_results_to_csv(const std::string& filename,
                                      const int max_digits,
                                      const double sequential_time,
                                      const double parallel_time,
-                                     const double optimised_parallel_time,
                                      const int threads_count)
 {
 	std::vector<std::string> data;
@@ -68,7 +67,6 @@ void file_utils::save_results_to_csv(const std::string& filename,
 	data.push_back(std::to_string(max_digits));
 	data.push_back(std::to_string(sequential_time));
 	data.push_back(std::to_string(parallel_time));
-	data.push_back(std::to_string(optimised_parallel_time));
 	data.push_back(std::to_string(threads_count));
 
 	write_data_to_csv_file(filename, data);

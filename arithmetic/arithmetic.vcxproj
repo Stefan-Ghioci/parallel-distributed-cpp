@@ -130,16 +130,20 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="optimised_parallel_adder.cpp" />
     <ClCompile Include="parallel_adder.cpp" />
+    <ClCompile Include="parallel_multiplier.cpp" />
     <ClCompile Include="paths.cpp" />
     <ClCompile Include="sequential_adder.cpp" />
+    <ClCompile Include="sequential_multiplier.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_utils.h" />
     <ClInclude Include="file_utils.h" />
     <ClInclude Include="optimised_parallel_adder.h" />
     <ClInclude Include="parallel_adder.h" />
+    <ClInclude Include="parallel_multiplier.h" />
     <ClInclude Include="paths.h" />
     <ClInclude Include="sequential_adder.h" />
+    <ClInclude Include="sequential_multiplier.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
