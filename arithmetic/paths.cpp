@@ -1,7 +1,7 @@
 ﻿#include "paths.h"
 
 
-std::string folder = "Release/";
+std::string folder = "x64/Release/";
 
 std::string results_filename = folder + "results.csv";
 

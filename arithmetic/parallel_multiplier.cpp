@@ -136,14 +136,13 @@ double parallel_multiplier::run(const int threads_count,
 	do
 	{
 		reduced_partial_products.clear();
+
 		threads.clear();
 
 		run_reducer_threads(threads, partial_products, reduced_partial_products, threads_count, multiplier.size());
 		parallel_adder::join_threads(threads);
 
-		partial_products.clear();
-		partial_products.resize(reduced_partial_products.size());
-		std::copy(reduced_partial_products.begin(), reduced_partial_products.end(), partial_products.begin());
+		partial_products = reduced_partial_products;
 	}
 	while (2 * threads_count <= reduced_partial_products.size());
 
