@@ -2,10 +2,7 @@
 #include "file_utils.h"
 #include <iostream>
 #include "data_utils.h"
-#include "sequential_adder.h"
 #include "paths.h"
-#include "parallel_adder.h"
-#include "optimised_parallel_adder.h"
 #include "sequential_multiplier.h"
 #include "parallel_multiplier.h"
 
