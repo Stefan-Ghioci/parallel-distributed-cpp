@@ -7,7 +7,7 @@
 #define MAX_SIZE_TAG 0
 #define PASS_CARRY_TAG 1
 
-int main()
+int main()  // NOLINT(bugprone-exception-escape)
 {
 	MPI_Init(nullptr, nullptr);
 
@@ -66,9 +66,9 @@ int main()
 		const auto interval_length = max_size / (world_size - 1);
 		const auto remainder = max_size % (world_size - 1);
 
-		const unsigned int start = interval_length * (world_rank - 1)
+		const auto start = interval_length * (world_rank - 1)
 			+ remainder - (world_rank <= remainder) * (remainder - world_rank + 1);
-		const unsigned int finish = interval_length * world_rank
+		const auto finish = interval_length * world_rank
 			+ remainder - (world_rank <= remainder) * (remainder - world_rank);
 
 
@@ -80,7 +80,7 @@ int main()
 		stream.seekg(-start - 1, std::ifstream::end);
 
 		char c;
-		while (stream.peek() != EOF && number1.size() != finish - start)
+		while (stream.peek() != EOF && number1.size() != unsigned(finish - start))
 		{
 			stream.get(c);
 			stream.seekg(-2, std::ifstream::cur);
@@ -88,7 +88,7 @@ int main()
 		}
 		stream.close();
 
-		while (number1.size() != finish - start)
+		while (number1.size() != unsigned(finish) - start)
 		{
 			number1.push(0);
 		}
@@ -100,7 +100,7 @@ int main()
 
 		stream.seekg(-start - 1, std::ifstream::end);
 
-		while (stream.peek() != EOF && number2.size() != finish - start)
+		while (stream.peek() != EOF && number2.size() != unsigned(finish) - start)
 		{
 			stream.get(c);
 			stream.seekg(-2, std::ifstream::cur);
@@ -108,7 +108,7 @@ int main()
 		}
 		stream.close();
 
-		while (number2.size() != finish - start)
+		while (number2.size() != unsigned(finish) - start)
 		{
 			number2.push(0);
 		}
