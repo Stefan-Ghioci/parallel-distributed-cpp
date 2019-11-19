@@ -123,7 +123,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="all_read.cpp" />
+    <ClCompile Include="all_read.h" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="root_reads.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

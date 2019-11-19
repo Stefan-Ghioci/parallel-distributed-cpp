@@ -1,3 +1,4 @@
+#pragma once
 #include "mpi.h"
 #include <string>
 #include <fstream>
@@ -7,7 +8,7 @@
 #define MAX_SIZE_TAG 0
 #define PASS_CARRY_TAG 1
 
-int main()  // NOLINT(bugprone-exception-escape)
+static void all_read()
 {
 	MPI_Init(nullptr, nullptr);
 
@@ -204,6 +205,13 @@ int main()  // NOLINT(bugprone-exception-escape)
 		std::ofstream ofstream;
 		ofstream.open("result.txt", std::ios::trunc);
 		ofstream << result;
+		ofstream.close();
+
+
+		// save time to output file
+
+		ofstream.open("stats.csv", std::ios::app);
+		ofstream << "all read," << max_size << "," << elapsed_time << "," << world_size << std::endl;
 		ofstream.close();
 	}
 
