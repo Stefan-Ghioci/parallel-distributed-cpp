@@ -75,61 +75,51 @@ static void all_read()
 
 		// read interval from first number
 
-		std::queue<unsigned char> number1;
+		auto* number1 = new unsigned char[max_size]();
 		stream.open(filename_number1, std::ios::binary);
 
 		stream.seekg(-start - 1, std::ifstream::end);
 
 		char c;
-		while (stream.peek() != EOF && number1.size() != unsigned(finish - start))
+		auto size = 0;
+		while (stream.peek() != EOF && size != finish - start)
 		{
 			stream.get(c);
 			stream.seekg(-2, std::ifstream::cur);
-			number1.push(c - '0');
+			number1[size++] = c - '0';
 		}
 		stream.close();
 
-		while (number1.size() != unsigned(finish) - start)
-		{
-			number1.push(0);
-		}
 
 		// read interval from second number
 
-		std::queue<unsigned char> number2;
+		auto* number2 = new unsigned char[max_size];
 		stream.open(filename_number2, std::ios::binary);
 
 		stream.seekg(-start - 1, std::ifstream::end);
 
-		while (stream.peek() != EOF && number2.size() != unsigned(finish) - start)
+		size = 0;
+		while (stream.peek() != EOF && size != finish - start)
 		{
 			stream.get(c);
 			stream.seekg(-2, std::ifstream::cur);
-			number2.push(c - '0');
+			number2[size++] = c - '0';
 		}
 		stream.close();
-
-		while (number2.size() != unsigned(finish) - start)
-		{
-			number2.push(0);
-		}
 
 
 		// compute partial sum from the 2 intervals
 
-		partial_sum_size = number1.size() + (world_rank == world_size - 1);
+		partial_sum_size = max_size + (world_rank == world_size - 1);
 		partial_sum = new unsigned char[partial_sum_size]();
 
 		auto carry = 0, digit_sum = 0;
 
-		for (auto i = 0; !number1.empty(); i++)
+		for (auto i = 0; i < max_size; i++)
 		{
-			digit_sum = number1.front() + number2.front() + carry;
+			digit_sum = number1[i] + number2[i] + carry;
 			partial_sum[i] = digit_sum % 10;
 			carry = digit_sum / 10;
-
-			number1.pop();
-			number2.pop();
 		}
 
 
