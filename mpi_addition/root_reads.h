@@ -161,8 +161,6 @@ static void root_reads() // NOLINT(bugprone-exception-escape)
 
 		if (world_rank != world_size - 1)
 			MPI_Send(&carry, 1, MPI_INT, world_rank + 1, PASS_CARRY_TAG, MPI_COMM_WORLD);
-		else
-			partial_sum[partial_sum_size - 1] = carry;
 	}
 
 	// gather all partial sums into the root process

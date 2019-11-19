@@ -75,47 +75,76 @@ static void all_read()
 
 		// read interval from first number
 
-		auto* number1 = new unsigned char[max_size]();
-		stream.open(filename_number1, std::ios::binary);
+		auto size = finish - start;
+		auto* number1 = new unsigned char[size]();
+		stream.open(filename_number1, std::ios::binary | std::ios::ate);
 
-		stream.seekg(-start - 1, std::ifstream::end);
+		stream.seekg(-finish, std::ifstream::cur);
 
 		char c;
-		auto size = 0;
-		while (stream.peek() != EOF && size != finish - start)
+		auto i = size;
+
+		if (stream.peek() == EOF)
+		{
+			stream.clear();
+			stream.seekg(-start - 1, std::ifstream::end);
+			if (stream.peek() == EOF)
+				i = 0;
+			else
+			{
+				i = stream.tellg();
+				i++;
+				stream.seekg(0, std::ifstream::beg);
+			}
+		}
+
+		while (stream.peek() != EOF && i != 0)
 		{
 			stream.get(c);
-			stream.seekg(-2, std::ifstream::cur);
-			number1[size++] = c - '0';
+			number1[--i] = c - '0';
 		}
 		stream.close();
 
 
 		// read interval from second number
 
-		auto* number2 = new unsigned char[max_size];
-		stream.open(filename_number2, std::ios::binary);
+		auto* number2 = new unsigned char[size]();
+		stream.open(filename_number2, std::ios::binary | std::ios::ate);
 
-		stream.seekg(-start - 1, std::ifstream::end);
+		stream.seekg(-finish, std::ifstream::cur);
 
-		size = 0;
-		while (stream.peek() != EOF && size != finish - start)
+		i = size;
+
+		if (stream.peek() == EOF)
+		{
+			stream.clear();
+			stream.seekg(-start - 1, std::ifstream::end);
+			if (stream.peek() == EOF)
+				i = 0;
+			else
+			{
+				i = stream.tellg();
+				i++;
+				stream.seekg(0, std::ifstream::beg);
+			}
+		}
+
+		while (stream.peek() != EOF && i != 0)
 		{
 			stream.get(c);
-			stream.seekg(-2, std::ifstream::cur);
-			number2[size++] = c - '0';
+			number2[--i] = c - '0';
 		}
 		stream.close();
 
 
 		// compute partial sum from the 2 intervals
 
-		partial_sum_size = max_size + (world_rank == world_size - 1);
+		partial_sum_size = size + (world_rank == world_size - 1);
 		partial_sum = new unsigned char[partial_sum_size]();
 
 		auto carry = 0, digit_sum = 0;
 
-		for (auto i = 0; i < max_size; i++)
+		for (i = 0; i < size; i++)
 		{
 			digit_sum = number1[i] + number2[i] + carry;
 			partial_sum[i] = digit_sum % 10;
@@ -132,7 +161,7 @@ static void all_read()
 
 			if (recv_carry != 0)
 			{
-				for (auto i = 0; i < partial_sum_size; i++)
+				for (i = 0; i < partial_sum_size; i++)
 				{
 					digit_sum = partial_sum[i] + recv_carry;
 					partial_sum[i] = digit_sum % 10;
@@ -149,8 +178,6 @@ static void all_read()
 
 		if (world_rank != world_size - 1)
 			MPI_Send(&carry, 1, MPI_INT, world_rank + 1, PASS_CARRY_TAG, MPI_COMM_WORLD);
-		else
-			partial_sum[partial_sum_size - 1] = carry;
 	}
 
 	// gather all partial sum sizes into the root process, then gather the partial sums 
