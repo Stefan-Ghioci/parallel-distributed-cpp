@@ -33,7 +33,7 @@ Codul conține două funcții ce pot fi apelate in **main.cpp**, și anume, **al
         1. deschide fișierele cu numerele, pe rând, și calculează lungimea fiecăruia
         2. apelează **MPI_Send** către celelalte procese cu lungimea maximă dintre cele două
 
-    2. **celelalte **procese
+    2. **celelalte** procese
         1. apelează **MPI_Recv** pentru a primi lungimea maximă
         2. calculează lungimea intervalului de cifre si pozițiile de unde citesc cifrele numerelor din fiecare fișier
         3. citesc pe rând și stochează intervalul corespunzător pentru cele două numere (cu cifrele **inversate**)
