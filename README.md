@@ -16,8 +16,8 @@ Set de functii de ajutor in realizarea laboratoarelor:
 
 ## **Proiectare**
 
-void write_data_to_csv_file(const string& filename, const vector\<string\>& data)
+``void write_data_to_csv_file(const string& filename, const vector\<string\>& data)``
 
-void generate_big_data_file(const string& filename, int size, int min, int max)
+``void generate_big_data_file(const string& filename, int size, int min, int max)``
 
-bool file_contents_equal(const string& filename1, const string& filename2)
+``bool file_contents_equal(const string& filename1, const string& filename2)``
