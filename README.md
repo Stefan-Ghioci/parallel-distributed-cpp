@@ -38,11 +38,11 @@ Codul conține două funcții ce pot fi apelate in **main.cpp**, și anume, **al
         2. calculează lungimea intervalului de cifre si pozițiile de unde citesc cifrele numerelor din fiecare fișier
         3. citesc pe rând și stochează intervalul corespunzător pentru cele două numere (cu cifrele **inversate**)
         4. calculează o **sumă** parțială între cele două intervale; rămâne un **carry**(=0/1) la finalul adunării, care va fi trimis ulterior la procesul vecin (**următorul** în rang)
-        5. apelează **MPI_Recv**(în afară de primul proces) pentru a primi carry-ul procesului anterior și îl adaugă la sumă; în urma acestei adunări, carry-ul rămas (=0/1) va fi adunat la cel calculat la pasul **iv**
+        5. apelează **MPI_Recv**(în afară de primul proces) pentru a primi carry-ul procesului anterior și îl adaugă la sumă; în urma acestei adunări, carry-ul rămas (=0/1) va fi adunat la cel calculat la pasul anterior
         6. se apelează **MPI_Send**(în afară de ultimul proces) pentru a trimite carry-ul final la procesul vecin (**următorul** în rang)
 
     3. **toate** procesele
-        1. strâng toate lungimile sumelor parțiale calculate în pașii **b(i-vi) **în procesul **root**, apelând **MPI_Gather**
+        1. strâng toate lungimile sumelor parțiale calculate în pașii **ii(a-f)** în procesul **root**, apelând **MPI_Gather**
         2. concatenează toate sumele într-un vector, de lungime egală cu suma lungimilor strânse anterior, în procesul **root**, apelând **MPI_Gatherv**
 
     4. procesul **root**
@@ -64,7 +64,7 @@ Codul conține două funcții ce pot fi apelate in **main.cpp**, și anume, **al
         1. calculează lungimea intervalului propriu (procesul **root** cu 0) și apelează **MPI_Gather** pentru a strânge toate lungimile intervalelor după care se vor impărți numerele
         2. apelează **MPI_Scatterv** pe intervalele calculate anterior, fiecărui proces revenindu-i câte o parte corespunzătoare din cele două numere
 
-    4. se urmează **aceiași** pași ca in varianta **1**, de la **b(iv)** la final
+    4. se urmează **aceiași** pași ca in varianta **1**, de la **ii(d)** la final
 
 ## **Testare**
 
