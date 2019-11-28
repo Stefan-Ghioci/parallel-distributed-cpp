@@ -17,7 +17,7 @@ Set de functii de ajutor in realizarea laboratoarelor:
 ## **Proiectare**
 
 ```cpp
-void write_data_to_csv_file(const string& filename, const vector\<string\>& data)
+void write_data_to_csv_file(const string& filename, const vector<string>& data)
 
 void generate_big_data_file(const string& filename, int size, int min, int max)
 
